@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping list example</title>
+    <style>
+      li {
+        margin-bottom: 10px;
+      }
+
+      li button {
+        font-size: 12px;
+        margin-left: 20px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>My shopping list</h1>
+
+    <form>
+      <label for="item">Enter a new item:</label>
+      <input type="text" name="item" id="item">
+      <button id="boton">Add item</button>
+    </form>
+
+    <ul id ="lista">
+
+    </ul>
+
+    <script>
+
+        const lista = document.getElementById("lista");
+        const texto = document.getElementById("item");
+        const boton = document.getElementById("boton");
+
+        //el primer parametro del addEventListener es el evento que se va a manejar
+        //el segundo parametro es la funcion
+        boton.addEventListener( 'click', (event) => { 
+            event.preventDefault();
+
+            const newItem = texto.value;
+            texto.value = '';
+
+            //creamos un nuevo elemento HTML para el item de lista:
+            const listItem = document.createElement("li"); //elemento lista "li"
+            const listText = document.createElement("span");//seccion de texto
+            const listBtn = document.createElement("button");//seccion de texto
+
+            listItem.appendChild(listText);
+            listText. textContent =  newItem;
+
+            listItem.appendChild(listBtn);
+            listBtn. textContent =  "Delete";
+
+
+            lista.appendChild(listItem)
+
+            listBtn.addEventListener( 'click', () => {
+                lista.removeChild(listItem);
+            } );
+
+            texto.focus(); //devolvemos el cursor ala caja de texto
+
+           }    );
+
+
+    </script>
+  </body>
+</html>

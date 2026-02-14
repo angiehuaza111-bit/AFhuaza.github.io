@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Hoja de Vida | Angie Huaza</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+:root{
+    --color-principal:#2c3e50;
+    --color-secundario:#3498db;
+    --color-fondo:#f4f6f7;
+    --color-texto:#2d2d2d;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    background:var(--color-fondo);
+    color:var(--color-texto);
+    line-height: 1.6;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+.header{
+    display:flex;
+    align-items:center;
+}
+
+.foto{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid var(--color-secundario);
+    margin-right:20px;
+}
+
+.titulo{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.section-title{
+    border-left:4px solid var(--color-secundario);
+    padding-left:10px;
+    margin-bottom:10px;
+    font-weight:bold;
+}
+
+.skills{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.skill-box{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:var(--color-secundario);
+    color:white;
+    padding:8px 12px;
+    border-radius:6px;
+}
+
+button{
+    padding:6px 10px;
+    border:none;
+    border-radius:6px;
+    background:#e74c3c;
+    color:white;
+    cursor:pointer;
+    font-size:12px;
+}
+
+button:hover{
+    opacity:0.8;
+}
+
+input{
+    padding:8px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    margin-top:5px;
+    display:block;
+}
+
+.experiencia-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:10px;
+    background:#ecf0f1;
+    padding:10px;
+    border-radius:6px;
+}
+
+footer{
+    text-align:center;
+    margin-top:40px;
+    color:gray;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card header">
+<img src="foto.jpg" class="foto" alt="Foto">
+<div>
+<div class="titulo">Angie F. Huaza N.</div>
+<p>Estudiante del área tecnológica con conocimientos en desarrollo web 
+    y programación. Destaco por mi compromiso, responsabilidad 
+    y facilidad para adaptarme a nuevos retos.</p>
+</div>
+</div>
+
+<div class="card">
+<div class="section-title">Formación Académica</div>
+
+<p><b>Título académico</b><br>
+Universidad santiago de cali – 2024-2026</p>
+
+<p><b>Otro estudio</b><br>
+Institución – Año</p>
+</div>
+
+<div class="card" id="experiencia">
+<div class="section-title">Experiencia Laboral</div>
+
+<div id="lista-experiencia"></div>
+
+<input type="text" id="cargo" placeholder="Cargo">
+<input type="text" id="empresa" placeholder="Empresa">
+<button id="agregarExp" style="background:#3498db; margin-top:10px;">Agregar experiencia</button>
+
+</div>
+
+<div class="card">
+<div class="section-title">Habilidades</div>
+
+<div class="skills" id="skills-container"></div>
+
+<input type="text" id="nuevaSkill" placeholder="Nueva habilidad">
+<button id="agregarSkill" style="background:#3498db; margin-top:10px;">Agregar habilidad</button>
+
+</div>
+
+<footer>
+© 2026 • Angie Huaza • Hoja de vida profesional
+</footer>
+
+</div>
+
+<script>
+
+// AGREGAR HABILIDAD
+const skillInput = document.getElementById("nuevaSkill");
+const addSkillBtn = document.getElementById("agregarSkill");
+const skillsContainer = document.getElementById("skills-container");
+
+addSkillBtn.addEventListener("click", function(){
+    if(skillInput.value.trim() === "") return;
+
+    const skillDiv = document.createElement("div");
+    skillDiv.classList.add("skill-box");
+
+    const skillText = document.createElement("span");
+    skillText.textContent = skillInput.value;
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Eliminar";
+
+    deleteBtn.addEventListener("click", function(){
+        skillDiv.remove();
+    });
+
+    skillDiv.appendChild(skillText);
+    skillDiv.appendChild(deleteBtn);
+    skillsContainer.appendChild(skillDiv);
+
+    skillInput.value = "";
+});
+
+// AGREGAR EXPERIENCIA 
+const cargoInput = document.getElementById("cargo");
+const empresaInput = document.getElementById("empresa");
+const addExpBtn = document.getElementById("agregarExp");
+const listaExp = document.getElementById("lista-experiencia");
+
+addExpBtn.addEventListener("click", function(){
+    if(cargoInput.value.trim() === "" || empresaInput.value.trim() === "") return;
+
+    const expDiv = document.createElement("div");
+    expDiv.classList.add("experiencia-item");
+
+    const expText = document.createElement("div");
+    expText.innerHTML = `
+        <b>${cargoInput.value}</b><br>
+        ${empresaInput.value}
+    `;
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Eliminar";
+
+    deleteBtn.addEventListener("click", function(){
+        expDiv.remove();
+    });
+
+    expDiv.appendChild(expText);
+    expDiv.appendChild(deleteBtn);
+    listaExp.appendChild(expDiv);
+
+    cargoInput.value = "";
+    empresaInput.value = "";
+});
+
+</script>
+
+</body>
+</html>
